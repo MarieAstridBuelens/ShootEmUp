@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Input : MonoBehaviour
 {
+    public Vector3 screenpos;
     [SerializeField] InputActionAsset inputActions;
     [SerializeField] private float speed = 1f;
     InputAction move;
@@ -30,7 +31,7 @@ public class Input : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 screenpos = cameraOutput.WorldToScreenPoint(transform.position);
+        screenpos = cameraOutput.WorldToScreenPoint(transform.position);
         Vector3 moveAmount = move.ReadValue<Vector3>();
         Debug.Log(moveAmount);
         if(screenpos.x < cameraOutput.pixelWidth){
