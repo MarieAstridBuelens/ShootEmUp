@@ -14,6 +14,7 @@ public class PoolManager : MonoBehaviour
     [SerializeField] private Transform end;
 
     [SerializeField] private float speed = 1f;
+    private Vector3 spawnPosition;
 
     private void AddBatch(){
         for (int _=0; _ < batch; _++){
@@ -29,6 +30,9 @@ public class PoolManager : MonoBehaviour
         }
         
         ConveyorItem item = queue.Dequeue();
+        spawnPosition = new Vector3 (0, Random.Range(-2, 3), 0);
+        start.position += spawnPosition;
+        end.position += spawnPosition;
         item.Initialize(this, start.position, end.position, speed);
         item.gameObject.SetActive(true);
     }
@@ -43,6 +47,8 @@ public class PoolManager : MonoBehaviour
     public void ItemArrived(ConveyorItem item){
         item.gameObject.SetActive(false);
         queue.Enqueue(item);
+        start.position -= spawnPosition;
+        end.position -= spawnPosition;
     }
 
 }
